@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Christmas Tree</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('background.jpg'); /* Updated with uploaded image */
+      background-size: contain; /* Adjusted to display entire image */
+      background-repeat: no-repeat;
+      background-position: center;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+    }
+
+    header {
+      display: none; /* Hide header */
+    }
+
+    .content {
+      display: none; /* Hide content */
+    }
+
+    footer {
+      display: none; /* Hide footer */
+    }
+
+    .snowflake {
+      position: absolute;
+      top: -10px;
+      background-color: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: fall 10s linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+      }
+    }
+
+    .mail-icon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background-image: url('mail.png'); /* Replace with a mailbox icon image */
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      display: block;
+    }
+
+    .arrow-icon {
+      position: absolute;
+      top: 50%;
+      width: 50px;
+      height: 50px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      transform: translateY(-50%);
+      cursor: pointer;
+      display: none; /* Initially hidden */
+    }
+
+    .arrow-left {
+      left: 20px;
+      background-image: url('OIT.jpg'); /* Replace with a left arrow icon image */
+    }
+
+    .arrow-right {
+      right: 20px;
+      background-image: url('OIP.jpg'); /* Replace with a right arrow icon image */
+    }
+  </style>
+</head>
+<body>
+<div class="mail-icon" id="mailIcon" onclick="changeBackground()"></div>
+<div class="arrow-icon arrow-left" id="arrowLeft" onclick="previousImage()"></div>
+<div class="arrow-icon arrow-right" id="arrowRight" onclick="nextImage()"></div>
+<script>
+  const createSnowflake = () => {
+    const snowflake = document.createElement('div');
+    snowflake.classList.add('snowflake');
+    const size = Math.random() * 10 + 5 + 'px';
+    snowflake.style.width = size;
+    snowflake.style.height = size;
+    snowflake.style.left = Math.random() * 100 + 'vw';
+    snowflake.style.animationDuration = Math.random() * 5 + 5 + 's';
+    document.body.appendChild(snowflake);
+
+    setTimeout(() => {
+      snowflake.remove();
+    }, 10000);
+  };
+
+  setInterval(createSnowflake, 100);
+
+  let currentImage = 1;
+  function changeBackground() {
+    document.body.style.backgroundImage = "url('love.jpg" + " ')"; // Replace with the uploaded image path
+    document.body.style.backgroundSize = "contain"; // Ensure the full image is visible
+    currentImage = 2;
+    updateArrows();
+    updateMailIcon();
+  }
+
+  function nextImage() {
+    if (currentImage === 2) {
+      document.body.style.backgroundImage = "url('anh3.jpg')"; // Replace with the next image path
+      currentImage = 3;
+    }
+    updateArrows();
+    updateMailIcon();
+  }
+
+  function previousImage() {
+    if (currentImage === 2) {
+      document.body.style.backgroundImage = "url('background.jpg')"; // Return to first image path
+      currentImage = 1;
+    } else if (currentImage === 3) {
+      document.body.style.backgroundImage = "url('love.jpg')"; // Return to second image path
+      currentImage = 2;
+    }
+    updateArrows();
+    updateMailIcon();
+  }
+
+  function updateArrows() {
+    const arrowLeft = document.getElementById('arrowLeft');
+    const arrowRight = document.getElementById('arrowRight');
+
+    if (currentImage === 2 || currentImage === 3) {
+      arrowLeft.style.display = 'block';
+      arrowRight.style.display = 'block';
+    } else {
+      arrowLeft.style.display = 'none';
+      arrowRight.style.display = 'none';
+    }
+  }
+
+  function updateMailIcon() {
+    const mailIcon = document.getElementById('mailIcon');
+    mailIcon.style.display = currentImage === 1 ? 'block' : 'none';
+  }
+
+  updateArrows();
+  updateMailIcon();
+</script>
+</body>
+</html>
